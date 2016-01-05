@@ -1,0 +1,28 @@
+html {
+    overflow-y: hidden;
+}
+
+html, body, #root {
+    overflow: auto;
+    /*overflow: hidden !important;*/
+    /*overflow-x: scroll;*/
+    /*-webkit-overflow-scrolling: touch;*/
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    /*overflow: hidden;*/
+}
+body {
+    margin: 0;
+    padding: 0;
+}
+#root {
+    /*background-color: red;*/
+    -webkit-overflow-scrolling: touch;
+}
+*::-webkit-scrollbar {
+    display: none;
+    -webkit-appearance: none;
+    width: 0 !important
+}

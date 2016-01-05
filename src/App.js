@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
 import { NICE, SUPER_NICE } from './colors';
 
+// base styles
+import '../index.css';
+
+import Waveform from './Waveform';
+import Scrubber from './Scrubber';
+import Overlay from './Overlay';
+
 class Counter extends Component {
   constructor(props) {
     super(props);
@@ -28,12 +35,33 @@ class Counter extends Component {
 }
 
 export class App extends Component {
+
+  //componentWillMount() {
+  //  setInterval(() => {
+  //    console.info(window.scrollLeft)
+  //  }, 300)
+  //}
+
+  state = {
+    frac: 0
+  };
+
+
   render() {
     return (
-      <div>
-        <Counter increment={1} color={NICE} />
-        <Counter increment={5} color={SUPER_NICE} />
+      <div style={style.wrapper} ref="wrapper">
+        <Waveform onMove={(frac) => this.setState({frac})} />
+        <Overlay frac={this.state.frac}/>
       </div>
     );
   }
 }
+
+let style = {
+  wrapper: {
+    display: 'flex',
+    height: '100%',
+    flexDirection: 'column',
+    justifyContent: 'center'
+  }
+};
