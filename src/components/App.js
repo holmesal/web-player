@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { NICE, SUPER_NICE } from './colors';
 
 // base styles
-import '../index.css';
+import '../../index.css';
 
 import Waveform from './Waveform';
 import Scrubber from './Scrubber';

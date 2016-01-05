@@ -1,9 +1,12 @@
 import React, {Component} from 'react';
 import Radium from 'radium';
 import {Motion, spring} from 'react-motion';
+import MdPlay from '../../node_modules/react-icons/lib/md/play-arrow';
+import {connect} from 'react-redux';
+import {overlay$} from '../selectors/selectors';
+import {updatePlaying} from '../actions/player';
 
-import MdPlay from 'react-icons/lib/md/play-arrow';
-
+@connect(overlay$)
 @Radium
 export default class Overlay extends React.Component {
 
@@ -12,20 +15,20 @@ export default class Overlay extends React.Component {
     };
 
     playButtonClicked() {
-        this.setState({playing: true});
+        this.props.dispatch(updatePlaying(true));
     }
 
     renderTimes() {
         return (
             <div style={style.timeRow}>
-                <span style={style.timestamp}>{this.props.frac}</span>
+                <span style={style.timestamp}>{this.props.prettyCurrentTime}</span>
             </div>
         )
     }
 
     renderPlayButton() {
-        let scale = this.state.playing ? 0.7 : 1;
-        let opacity = this.state.playing ? 0 : 1;
+        let scale = this.props.playing ? 0.7 : 1;
+        let opacity = this.props.playing ? 0 : 1;
         return (
             <Motion defaultStyle={{scale: 0.7, opacity: 0}} style={{scale: spring(scale), opacity: spring(opacity)}}>
                 {(val) => (
@@ -38,7 +41,7 @@ export default class Overlay extends React.Component {
     }
 
     render() {
-        console.info('render!')
+        //console.info('render!', this.props)
         return (
             <div style={style.wrapper}>
                 {this.renderTimes()}
@@ -71,7 +74,8 @@ let style = {
     },
     timestamp: {
         fontSize: 16,
-        fontWeight: 400
+        fontWeight: 400,
+        letterSpacing: 1.5
     },
     playButton: {
         position: 'fixed',

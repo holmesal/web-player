@@ -21,7 +21,7 @@ export default class WaveformRenderer extends React.Component {
 
     componentWillMount() {
         // Generate some random fracs
-        let fracs = _.map(_.range(0, 1000), i => Math.sin(i/5) * Math.random() / 2 + 0.5);
+        let fracs = _.map(_.range(0, 2000), i => Math.sin(i/5) * Math.random() / 2 + 0.5);
         let width = this.calcWidth(fracs);
         this.setState({
             fracs,

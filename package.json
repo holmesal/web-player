@@ -41,6 +41,7 @@
     "babel-preset-es2015": "^6.3.13",
     "babel-preset-react": "^6.3.13",
     "babel-preset-react-hmre": "^1.0.0",
+    "babel-preset-stage-0": "^6.3.13",
     "cross-env": "^1.0.6",
     "css-loader": "^0.23.1",
     "eslint": "^1.10.3",
@@ -56,9 +57,11 @@
     "webpack-hot-middleware": "^2.6.0"
   },
   "dependencies": {
-    "babel-preset-stage-0": "^6.3.13",
     "clamp": "^1.0.1",
+    "duration": "^0.2.0",
     "ftscroller": "^0.6.2",
+    "immutable": "^3.7.5",
+    "moment": "^2.11.0",
     "normalize.css": "^3.0.3",
     "radium": "^0.15.3",
     "react": "^0.14.3",
@@ -66,6 +69,10 @@
     "react-dom": "^0.14.3",
     "react-icons": "^1.0.3",
     "react-motion": "^0.3.1",
-    "svg.js": "^2.2.5"
+    "redux": "^3.0.4",
+    "redux-immutablejs": "0.0.7",
+    "redux-logger": "^2.0.4",
+    "redux-thunk": "^1.0.0",
+    "reselect": "^2.0.0"
   }
 }
