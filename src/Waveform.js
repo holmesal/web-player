@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Radium from 'radium';
 import clamp from 'clamp';
+import {Motion, spring} from 'react-motion';
 
 import WaveformRenderer from './WaveformRenderer';
 
@@ -67,13 +68,26 @@ export default class Waveform extends React.Component {
         //})
     }
 
+    renderWaveform() {
+        return (
+            <Motion defaultStyle={{scaleY: 0}} style={{scaleY: spring(1)}}>
+                {(val) => (
+                    <div style={{transform: `scaleY(${val.scaleY})`}}>
+                        <WaveformRenderer onWidth={this.gotWidth.bind(this)}/>
+                    </div>
+                )}
+            </Motion>
+        )
+    }
+
 
                 //<img style={[style.waveform]} src="http://static1.squarespace.com/static/543cb41ce4b0856c8a0288f3/t/54418dafe4b067cc71767362/1413582257072/audio+waveform.png?format=2500w" />
     render() {
         //console.info(this.state)
         return (
             <div ref="wrapper" style={[style.wrapper, {paddingLeft: this.state.padding, paddingRight: this.state.padding, width: this.state.width + 2 * this.state.padding}]}>
-                <WaveformRenderer onWidth={this.gotWidth.bind(this)} />
+                {this.renderWaveform()}
+                <div style={style.mask}></div>
             </div>
         );
     }
@@ -82,16 +96,31 @@ export default class Waveform extends React.Component {
 let style = {
     wrapper: {
         display: 'flex',
+        //height: 70,
         //flex: 1,
         alignSelf: 'stretch',
         width: '100%',
         overflowX: 'scroll',
         //backgroundColor: 'red',
-        boxSizing: 'border-box'
+        boxSizing: 'border-box',
+        //position: 'relative'
     },
     waveform: {
-        height: 100,
+        //height: 70,
         display: 'block',
         flex: 1
+    },
+    mask: {
+        position: 'fixed',
+        backgroundColor: 'white',
+        opacity: 0.9,
+        top: '50%',
+        left: 0,
+        width: '50%',
+        height: 70,
+        marginTop: -35,
+        borderRight: '1px solid #efefef',
+        marginLeft: -1,
+        pointerEvents: 'none'
     }
 };

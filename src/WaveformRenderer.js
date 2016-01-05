@@ -6,6 +6,7 @@ import _ from 'lodash';
 let height = 70;
 let strokeWidth = 2;
 let spacing = 8;
+let strokeColor = '#50ABF1';
 
 @Radium
 export default class WaveformRenderer extends React.Component {
@@ -49,7 +50,7 @@ export default class WaveformRenderer extends React.Component {
         // draw to end
         path.lineTo(0, y2);
         // render shape
-        return <Shape key={x} d={path} strokeWidth={strokeWidth} stroke="#000000" strokeCap="round" transform={trans} />
+        return <Shape key={x} d={path} strokeWidth={strokeWidth} stroke={strokeColor} strokeCap="round" transform={trans} />
     }
 
     renderBars() {
@@ -57,8 +58,6 @@ export default class WaveformRenderer extends React.Component {
     }
 
     render() {
-        console.info(this.state.fracs)
-
         return (
             <Surface
                 width={this.state.width}
