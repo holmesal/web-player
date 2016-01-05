@@ -5,7 +5,7 @@ import {UPDATE_PROGRESS, UPDATE_PLAYING} from '../actions/player';
 const initialState = Immutable.fromJS({
     playing: false,
     progress: 0.0,
-    episodeLength: 3000
+    length: 3000
 });
 
 export default createReducer(initialState, {

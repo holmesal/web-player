@@ -6,6 +6,7 @@ import '../../index.css';
 import Waveform from './Waveform';
 import Scrubber from './Scrubber';
 import Overlay from './Overlay';
+import Audio from './audio/Audio';
 
 class Counter extends Component {
   constructor(props) {
@@ -51,6 +52,7 @@ export class App extends Component {
       <div style={style.wrapper} ref="wrapper">
         <Waveform onMove={(frac) => this.setState({frac})} />
         <Overlay frac={this.state.frac}/>
+        <Audio />
       </div>
     );
   }
