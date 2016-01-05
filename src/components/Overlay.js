@@ -20,10 +20,17 @@ export default class Overlay extends React.Component {
     }
 
     renderTimes() {
+        let y = this.props.playing ? 0 : 50;
+        let opacity = this.props.playing ? 1 : 0;
+        let springConfig = this.props.playing ? [300, 22] : [180, 17];
         return (
-            <div style={style.timeRow}>
-                <span style={style.timestamp}>{this.props.prettyCurrentTime}</span>
-            </div>
+            <Motion defaultStyle={{y: 50, opacity: 0}} style={{y: spring(y, springConfig), opacity: spring(opacity, springConfig)}}>
+                {(val) => (
+                    <div style={[style.timeRow, {transform: `translateY(${val.y}px)`, opacity: val.opacity}]}>
+                        <span style={style.timestamp}>{this.props.prettyCurrentTime}</span>
+                    </div>
+                )}
+            </Motion>
         )
     }
 

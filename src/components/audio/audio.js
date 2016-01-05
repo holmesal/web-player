@@ -24,7 +24,7 @@ export default class Audio extends React.Component {
         let TargetAudio = this.getTargetComponent();
         return <TargetAudio
             type="audio/mp3"
-            source="http://goo.gl/eb7ne2"
+            source={this.props.source}
             playing={this.props.playing}
             currentTime={this.props.progress * this.props.length}/>
     }
