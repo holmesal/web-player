@@ -12,10 +12,17 @@ export const currentTime$ = createSelector(progress$, episodeLength$, (progress,
 export const prettyCurrentTime$ = createSelector(currentTime$, (currentTime) => prettyFormatTime(currentTime));
 
 /**
- * Selectors for compoenents
+ * Selectors for components
  */
 export const overlay$ = createSelector(progress$, playing$, prettyCurrentTime$, (progress, playing, prettyCurrentTime) => ({
     progress,
     playing,
     prettyCurrentTime
+}));
+export const waveform$ = createSelector(playing$, (playing) => ({
+    playing
+}));
+export const audio$ = createSelector(playing$, progress$, (playing, progress) => ({
+    playing,
+    //progress
 }));

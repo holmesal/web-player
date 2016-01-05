@@ -11,10 +11,11 @@ import {updatePlaying} from '../actions/player';
 export default class Overlay extends React.Component {
 
     state = {
-        playing: false
+        playing: false,
+        hover: false
     };
 
-    playButtonClicked() {
+    playButtonClicked(ev) {
         this.props.dispatch(updatePlaying(true));
     }
 
@@ -27,12 +28,18 @@ export default class Overlay extends React.Component {
     }
 
     renderPlayButton() {
-        let scale = this.props.playing ? 0.7 : 1;
+        let scale = this.props.playing ? 0.50 : 1;
+        if (!this.props.playing && this.state.hover) scale = 0.95;
         let opacity = this.props.playing ? 0 : 1;
+        let springConfig = this.props.playing ? [300, 22] : [180, 17];
         return (
-            <Motion defaultStyle={{scale: 0.7, opacity: 0}} style={{scale: spring(scale), opacity: spring(opacity)}}>
+            <Motion defaultStyle={{scale: 0.9, opacity: 0}} style={{scale: spring(scale, springConfig), opacity: spring(opacity, springConfig)}}>
                 {(val) => (
-                    <div style={[style.playButton, {opacity: val.opacity, transform: `scale(${val.scale})`}]} onClick={this.playButtonClicked.bind(this)} onTouchTap={this.playButtonClicked.bind(this)}>
+                    <div style={[style.playButton, {opacity: val.opacity, transform: `scale(${val.scale})`}, this.state.hover && {cursor: 'pointer', backgroundColor: '#FCFCFC'}, this.props.playing && {pointerEvents: 'none'}]}
+                         onTouchTap={this.playButtonClicked.bind(this)}
+                         onMouseOver={ev => this.setState({hover: true})}
+                         onMouseOut={ev => this.setState({hover: false})}
+                    >
                         <MdPlay style={{fontSize: 50}} />
                     </div>
                 )}
@@ -89,6 +96,7 @@ let style = {
         marginTop: -53,
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        WebkitBackfaceVisibility: 'hidden'
     }
 };

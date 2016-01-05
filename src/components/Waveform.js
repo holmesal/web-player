@@ -4,9 +4,10 @@ import clamp from 'clamp';
 import {Motion, spring} from 'react-motion';
 import WaveformRenderer from './WaveformRenderer';
 import {connect} from 'react-redux';
-import {updateProgress} from '../actions/player';
+import {updateProgress, updatePlaying} from '../actions/player';
+import {waveform$} from '../selectors/selectors';
 
-@connect()
+@connect(waveform$)
 @Radium
 export default class Waveform extends React.Component {
 
@@ -19,8 +20,12 @@ export default class Waveform extends React.Component {
         this.throttledScrollHandler = _.throttle(this.handleScroll, 64);
     }
 
+    pause() {
+        this.props.dispatch(updatePlaying(false));
+    }
+
     gotWidth(width) {
-        console.info('got width', width)
+        console.info('got width', width);
         this.setState({width});
     }
 
@@ -73,10 +78,12 @@ export default class Waveform extends React.Component {
     }
 
     renderWaveform() {
+        let scale = this.props.playing ? 1 : 0;
+        let springConfig = this.props.playing ? [172, 16] : [232,25];
         return (
-            <Motion defaultStyle={{scaleY: 0}} style={{scaleY: spring(1)}}>
+            <Motion defaultStyle={{scaleY: 0}} style={{scaleY: spring(scale, springConfig)}}>
                 {(val) => (
-                    <div style={{transform: `scaleY(${val.scaleY})`}}>
+                    <div style={{transform: `scaleY(${val.scaleY})`}} onTouchTap={this.pause.bind(this)}>
                         <WaveformRenderer onWidth={this.gotWidth.bind(this)}/>
                     </div>
                 )}
@@ -87,7 +94,7 @@ export default class Waveform extends React.Component {
 
                 //<img style={[style.waveform]} src="http://static1.squarespace.com/static/543cb41ce4b0856c8a0288f3/t/54418dafe4b067cc71767362/1413582257072/audio+waveform.png?format=2500w" />
     render() {
-        console.info('waveform render!');
+        //console.info('waveform render!');
         return (
             <div ref="wrapper" style={[style.wrapper, {paddingLeft: this.state.padding, paddingRight: this.state.padding, width: this.state.width + 2 * this.state.padding}]}>
                 {this.renderWaveform()}

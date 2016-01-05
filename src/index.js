@@ -2,6 +2,9 @@
 var injectTapEventPlugin = require("react-tap-event-plugin");
 injectTapEventPlugin();
 
+// Init audio element
+import Audio from './libs/audio';
+
 import React from 'react';
 import { render } from 'react-dom';
 import { App } from './components/App';

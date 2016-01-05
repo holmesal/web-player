@@ -58,6 +58,7 @@ export default class WaveformRenderer extends React.Component {
     }
 
     render() {
+        console.info('building waveform!');
         return (
             <Surface
                 width={this.state.width}
